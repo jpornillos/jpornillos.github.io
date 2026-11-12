@@ -1,0 +1,39 @@
+[
+  {
+    "title": "AI Art Classifier",
+    "tagline": "Custom CNN for synthetic vs. human artwork detection.",
+    "description": "Convolutional neural network trained from scratch to distinguish AI-generated artwork from human illustrations, achieving 99.22% validation accuracy across diverse art styles.",
+    "tech": ["Python", "PyTorch", "scikit-learn", "Pillow"],
+    "repo": "ai-art-classifier",
+    "openSource": true,
+    "media": "public/media/ai_art_classifier.webp"
+  },
+  {
+    "title": "Diabetes Risk Dashboard",
+    "tagline": "Multi-model clinical biomarker inference web app.",
+    "description": "Interactive diagnostic web application comparing six classification pipelines with live biomarker inference and feature importance evaluation on the Pima Indians Diabetes dataset.",
+    "tech": ["Python", "Flask", "scikit-learn", "HTML/CSS"],
+    "repo": "diabetes-risk-dashboard",
+    "openSource": true,
+    "media": "public/media/diabetes-risk-dashboard.webp"
+  },
+   {
+    "title": "Dual-RFID Turnstile Access Control System",
+    "tagline": "Hardware-to-API RFID turnstile controller for automated entry and exit verification.",
+    "description": "An Arduino-based access control prototype built with dual MFRC522 RFID readers, solenoid relay actuation, and an Ethernet shield that authenticates entry/exit scans against a remote REST API in real time.",
+    "tech": ["C++", "Arduino", "Embedded Systems"],
+    "repo": "dual-rfid-gate-controller",
+    "openSource": true,
+    "media": "public/media/turnstile.webp"
+  },
+  {
+      "title": "UIC REC System",
+    "tagline": "Streamlining academic research ethics reviews from manuscript submission to automated certification",
+    "description": "A web portal built for the University of the Immaculate Conception's Research Ethics Committee to replace manual email submissions with role-based manuscript tracking, reviewer feedback loops, and one-click ethics compliance certification.",
+    "tech": ["Python", "Django", "JavaScript", "SQL"],
+    "repo": "",
+    "openSource": false,
+    "media": "public/media/uic_rec.webp"
+  }
+ 
+]

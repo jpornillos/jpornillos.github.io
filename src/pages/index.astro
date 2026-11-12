@@ -1,16 +1,283 @@
 ---
+import '../styles/global.css';
+import projects from '../data/projects.json';
+
+const GITHUB_USER = 'jpornillos';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/joepornillos';
+const EMAIL_USER = 'joepornillos';
+const EMAIL_DOMAIN = 'gmail';
+const EMAIL_TLD = 'com';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>J Pornillos // Portfolio</title>
+
+    <!-- Prevent flash of wrong theme on page load -->
+    <script is:inline>
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
+  </head>
+
+  <body
+    class="min-h-screen bg-[#F2F2F2] text-neutral-900 dark:bg-[#0B0B0C] dark:text-neutral-200 antialiased transition-colors duration-200 selection:bg-neutral-900 selection:text-white dark:selection:bg-neutral-200 dark:selection:text-neutral-950"
+  >
+    <!-- Top Structural Bar -->
+    <nav class="border-b border-neutral-900/20 dark:border-neutral-800">
+      <div class="max-w-6xl mx-auto px-6 sm:px-10 py-4 flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm font-mono">
+        <div class="flex items-center gap-2.5 font-medium tracking-tight text-neutral-950 dark:text-neutral-100">
+          <span class="inline-block w-3 h-3 bg-neutral-950 dark:bg-neutral-100"></span>
+          <span>Portfolio</span>
+        </div>
+
+        <!-- Theme Pill Switch -->
+        <div class="flex items-center gap-2">
+          <span class="text-neutral-500 dark:text-neutral-400">Theme:</span>
+          <div class="inline-flex rounded-full border border-neutral-900 dark:border-neutral-700 p-0.5 text-xs">
+            <button
+              id="theme-light"
+              class="px-2.5 py-0.5 rounded-full text-neutral-700 dark:text-neutral-400 transition-colors cursor-pointer"
+            >
+              Light
+            </button>
+            <button
+              id="theme-dark"
+              class="px-2.5 py-0.5 rounded-full bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-950 transition-colors cursor-pointer"
+            >
+              Dark
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 sm:px-10 py-14 sm:py-20 space-y-16 sm:space-y-20">
+      
+      <!-- Header / Bio -->
+      <header class="space-y-6 pb-12 border-b border-neutral-900/20 dark:border-neutral-800">
+        <div class="space-y-4">
+          <h1 class="text-3xl sm:text-5xl font-medium tracking-tight text-neutral-950 dark:text-neutral-50">
+            Joseph Pornillos
+          </h1>
+          <p class="text-base sm:text-lg text-neutral-700 dark:text-neutral-400 leading-relaxed max-w-3xl">
+            Computer Science graduate with a strong foundation in system troubleshooting, networking, and technical support.
+          </p>
+        </div>
+
+        <!-- Socials & Scrape-Resistant Email -->
+        <div class="pt-2 flex flex-wrap items-center gap-5 text-sm font-mono">
+          <a
+            href={`https://github.com/${GITHUB_USER}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-neutral-900 dark:text-neutral-100 hover:opacity-70 underline underline-offset-4 decoration-neutral-400 dark:decoration-neutral-600 transition-opacity"
+          >
+            GitHub ↗
+          </a>
+          <a
+            href={LINKEDIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-neutral-900 dark:text-neutral-100 hover:opacity-70 underline underline-offset-4 decoration-neutral-400 dark:decoration-neutral-600 transition-opacity"
+          >
+            LinkedIn ↗
+          </a>
+
+          <span class="text-neutral-400 dark:text-neutral-700 hidden sm:inline">|</span>
+
+          <!-- Email rendered with inline SVG symbols to deter scrapers -->
+          <div class="inline-flex items-center gap-2.5">
+            <span class="inline-flex items-center text-neutral-800 dark:text-neutral-300 select-none" aria-label="Email address">
+              <span>{EMAIL_USER}</span>
+              <svg class="w-4 h-4 mx-0.5 inline text-neutral-500 dark:text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path>
+              </svg>
+              <span>{EMAIL_DOMAIN}</span>
+              <svg class="w-1.5 h-1.5 mx-0.5 inline text-neutral-500 dark:text-neutral-400" viewBox="0 0 8 8" fill="currentColor">
+                <circle cx="4" cy="5" r="2"></circle>
+              </svg>
+              <span>{EMAIL_TLD}</span>
+            </span>
+
+            <button
+              id="copy-email"
+              data-u={EMAIL_USER}
+              data-d={`${EMAIL_DOMAIN}.${EMAIL_TLD}`}
+              class="px-2.5 py-1 text-xs bg-white hover:bg-neutral-200 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-200 border border-neutral-900/25 dark:border-neutral-700 rounded transition-colors cursor-pointer"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Projects Section (Horizontal Auto-Fitting Tiles) -->
+      <section class="space-y-8 pb-14 border-b border-neutral-900/20 dark:border-neutral-800">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xs sm:text-sm font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+            Selected Projects
+          </h2>
+          <span class="text-xs font-mono text-neutral-500 dark:text-neutral-500">
+            [{projects.length.toString().padStart(2, '0')}]
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
+          {projects.map((project) => {
+            const isVideo = project.media && (project.media.endsWith('.webm') || project.media.endsWith('.mp4'));
+            return (
+              <article class="flex flex-col justify-between p-6 rounded-xl bg-white/80 dark:bg-[#121214]/90 border border-neutral-900/20 dark:border-neutral-800 hover:border-neutral-900/50 dark:hover:border-neutral-700 transition-colors space-y-5">
+                <div class="space-y-4">
+                  <!-- Card Header: Title + Open/Closed Source Pill -->
+                  <div class="flex items-start justify-between gap-3">
+                    {project.openSource && project.repo ? (
+                      <a
+                        href={`https://github.com/${GITHUB_USER}/${project.repo}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-lg sm:text-xl font-medium tracking-tight text-neutral-950 dark:text-neutral-100 hover:opacity-75 underline underline-offset-4 decoration-neutral-400 dark:decoration-neutral-700 transition-opacity"
+                      >
+                        {project.title} ↗
+                      </a>
+                    ) : (
+                      <h3 class="text-lg sm:text-xl font-medium tracking-tight text-neutral-950 dark:text-neutral-100">
+                        {project.title}
+                      </h3>
+                    )}
+
+                    {project.openSource ? (
+                      <span class="shrink-0 font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-600/30 dark:border-emerald-500/30">
+                        open source
+                      </span>
+                    ) : (
+                      <span class="shrink-0 font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-600/30 dark:border-amber-500/30">
+                        closed source
+                      </span>
+                    )}
+                  </div>
+
+                  <!-- Optional Media Preview (Static WebP/PNG or Lightweight WebM/MP4) -->
+                  {project.media && (
+                    <div class="overflow-hidden rounded-lg border border-neutral-900/15 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 aspect-video">
+                      {isVideo ? (
+                        <video
+                          src={project.media}
+                          autoplay
+                          loop
+                          muted
+                          playsinline
+                          class="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <img
+                          src={project.media}
+                          alt={`${project.title} preview`}
+                          loading="lazy"
+                          class="w-full h-full object-cover"
+                        />
+                      )}
+                    </div>
+                  )}
+
+                  <!-- Tagline & Description -->
+                  <div class="space-y-2">
+                    {project.tagline && (
+                      <p class="text-sm font-medium text-neutral-800 dark:text-neutral-200">
+                        {project.tagline}
+                      </p>
+                    )}
+                    <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                      {project.description}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Tech Badges -->
+                <div class="flex flex-wrap gap-2 pt-2">
+                  {project.tech.map((item) => (
+                    <span class="font-mono text-xs px-2.5 py-1 rounded bg-neutral-200/70 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 border border-neutral-900/10 dark:border-neutral-800">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <!-- Research Section -->
+      <section class="space-y-4">
+        <h2 class="text-xs sm:text-sm font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+          Research Contribution
+        </h2>
+        <div>
+          <a
+            href="https://scholar.google.com/scholar?q=ErrgoEngine:+A+Contextualized+Programming+Error+Analysis+Translation+Engine"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-base sm:text-lg font-medium text-neutral-900 dark:text-neutral-100 hover:opacity-75 underline underline-offset-4 decoration-neutral-400 dark:decoration-neutral-700 transition-opacity leading-relaxed"
+          >
+            ErrgoEngine: A Contextualized Programming Error Analysis Translation Engine ↗
+          </a>
+        </div>
+      </section>
+
+    </main>
+
+    <script>
+      // 1. Copy Email Handler
+      const copyBtn = document.getElementById('copy-email');
+      copyBtn?.addEventListener('click', () => {
+        const u = copyBtn.getAttribute('data-u');
+        const d = copyBtn.getAttribute('data-d');
+        if (!u || !d) return;
+
+        navigator.clipboard.writeText(`${u}@${d}`);
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+        }, 2000);
+      });
+
+      // 2. Theme Toggle Handler
+      const htmlEl = document.documentElement;
+      const lightBtn = document.getElementById('theme-light');
+      const darkBtn = document.getElementById('theme-dark');
+
+      function syncThemeButtons() {
+        const isDark = htmlEl.classList.contains('dark');
+        if (isDark) {
+          darkBtn?.classList.add('bg-neutral-900', 'text-white', 'dark:bg-neutral-100', 'dark:text-neutral-950');
+          lightBtn?.classList.remove('bg-neutral-900', 'text-white', 'dark:bg-neutral-100', 'dark:text-neutral-950');
+        } else {
+          lightBtn?.classList.add('bg-neutral-900', 'text-white', 'dark:bg-neutral-100', 'dark:text-neutral-950');
+          darkBtn?.classList.remove('bg-neutral-900', 'text-white', 'dark:bg-neutral-100', 'dark:text-neutral-950');
+        }
+      }
+
+      syncThemeButtons();
+
+      lightBtn?.addEventListener('click', () => {
+        htmlEl.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        syncThemeButtons();
+      });
+
+      darkBtn?.addEventListener('click', () => {
+        htmlEl.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        syncThemeButtons();
+      });
+    </script>
+  </body>
 </html>
