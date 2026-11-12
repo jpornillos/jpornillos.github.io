@@ -6,7 +6,7 @@
     "tech": ["Python", "PyTorch", "scikit-learn", "Pillow"],
     "repo": "ai-art-classifier",
     "openSource": true,
-    "media": "public/media/ai_art_classifier.webp"
+    "media": "/media/ai_art_classifier.webp"
   },
   {
     "title": "Diabetes Risk Dashboard",
@@ -15,7 +15,7 @@
     "tech": ["Python", "Flask", "scikit-learn", "HTML/CSS"],
     "repo": "diabetes-risk-dashboard",
     "openSource": true,
-    "media": "public/media/diabetes-risk-dashboard.webp"
+    "media": "/media/diabetes-risk-dashboard.webp"
   },
    {
     "title": "Dual-RFID Turnstile Access Control System",
@@ -24,7 +24,7 @@
     "tech": ["C++", "Arduino", "Embedded Systems"],
     "repo": "dual-rfid-gate-controller",
     "openSource": true,
-    "media": "public/media/turnstile.webp"
+    "media": "/media/turnstile.webp"
   },
   {
       "title": "UIC REC System",
@@ -33,7 +33,7 @@
     "tech": ["Python", "Django", "JavaScript", "SQL"],
     "repo": "",
     "openSource": false,
-    "media": "public/media/uic_rec.webp"
+    "media": "/media/uic_rec.webp"
   }
  
 ]
