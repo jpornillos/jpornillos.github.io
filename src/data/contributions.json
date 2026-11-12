@@ -1,0 +1,23 @@
+[
+  {
+    "org": "DurianPy — Davao Python User Group",
+    "repo": "durianpy-cms",
+    "url": "https://github.com/DurianPy-Davao-Python-User-Group/durianpy-cms/commits?author=jpornillos",
+    "summary": "Contributed to content management schemas and web features for the community platform.",
+    "visible": true
+  },
+  {
+    "org": "DurianPy — Davao Python User Group",
+    "repo": "durianpy-badge-service-backend",
+    "url": "https://github.com/DurianPy-Davao-Python-User-Group/durianpy-badge-service-backend/commits?author=jpornillos",
+    "summary": "Contributed to backend service logic and API workflows for automated event badge generation.",
+    "visible": true
+  },
+  {
+    "org": "DurianPy — Davao Python User Group",
+    "repo": "pycon-davao-2026-website",
+    "url": "https://github.com/DurianPy-Davao-Python-User-Group/pycon-davao-2026-website/commits?author=jpornillos",
+    "summary": "Contributed frontend implementation and site updates for the PyCon Davao 2026 conference portal.",
+    "visible": true
+  }
+]

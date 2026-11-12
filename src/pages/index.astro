@@ -1,12 +1,18 @@
 ---
 import '../styles/global.css';
 import projects from '../data/projects.json';
+import contributions from '../data/contributions.json';
+import research from '../data/research.json';
 
 const GITHUB_USER = 'jpornillos';
 const LINKEDIN_URL = 'https://www.linkedin.com/in/joepornillos';
 const EMAIL_USER = 'joepornillos';
 const EMAIL_DOMAIN = 'gmail';
 const EMAIL_TLD = 'com';
+
+const activeProjects = projects.filter((item) => item.visible !== false);
+const activeContributions = contributions.filter((item) => item.visible !== false);
+const activeResearch = research.filter((item) => item.visible !== false);
 ---
 
 <!doctype html>
@@ -121,118 +127,194 @@ const EMAIL_TLD = 'com';
       </header>
 
       <!-- Projects Section (Horizontal Auto-Fitting Tiles) -->
-      <section class="space-y-8 pb-14 border-b border-neutral-900/20 dark:border-neutral-800">
-        <div class="flex items-center justify-between">
-          <h2 class="text-xs sm:text-sm font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
-            Selected Projects
-          </h2>
-          <span class="text-xs font-mono text-neutral-500 dark:text-neutral-500">
-            [{projects.length.toString().padStart(2, '0')}]
-          </span>
-        </div>
+      {activeProjects.length > 0 && (
+        <section class="space-y-8 pb-14 border-b border-neutral-900/20 dark:border-neutral-800">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xs sm:text-sm font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+              Selected Projects
+            </h2>
+            <span class="text-xs font-mono text-neutral-500 dark:text-neutral-500">
+              [{activeProjects.length.toString().padStart(2, '0')}]
+            </span>
+          </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
-          {projects.map((project) => {
-            const isVideo = project.media && (project.media.endsWith('.webm') || project.media.endsWith('.mp4'));
-            return (
-              <article class="flex flex-col justify-between p-6 rounded-xl bg-white/80 dark:bg-[#121214]/90 border border-neutral-900/20 dark:border-neutral-800 hover:border-neutral-900/50 dark:hover:border-neutral-700 transition-colors space-y-5">
-                <div class="space-y-4">
-                  <!-- Card Header: Title + Open/Closed Source Pill -->
-                  <div class="flex items-start justify-between gap-3">
-                    {project.openSource && project.repo ? (
-                      <a
-                        href={`https://github.com/${GITHUB_USER}/${project.repo}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-lg sm:text-xl font-medium tracking-tight text-neutral-950 dark:text-neutral-100 hover:opacity-75 underline underline-offset-4 decoration-neutral-400 dark:decoration-neutral-700 transition-opacity"
-                      >
-                        {project.title} ↗
-                      </a>
-                    ) : (
-                      <h3 class="text-lg sm:text-xl font-medium tracking-tight text-neutral-950 dark:text-neutral-100">
-                        {project.title}
-                      </h3>
-                    )}
-
-                    {project.openSource ? (
-                      <span class="shrink-0 font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-600/30 dark:border-emerald-500/30">
-                        open source
-                      </span>
-                    ) : (
-                      <span class="shrink-0 font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-600/30 dark:border-amber-500/30">
-                        closed source
-                      </span>
-                    )}
-                  </div>
-
-                  <!-- Optional Media Preview (Static WebP/PNG or Lightweight WebM/MP4) -->
-                  {project.media && (
-                    <div class="overflow-hidden rounded-lg border border-neutral-900/15 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 aspect-video">
-                      {isVideo ? (
-                        <video
-                          src={project.media}
-                          autoplay
-                          loop
-                          muted
-                          playsinline
-                          class="w-full h-full object-cover"
-                        />
+          <div class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-6">
+            {activeProjects.map((project) => {
+              const isVideo = project.media && (project.media.endsWith('.webm') || project.media.endsWith('.mp4'));
+              return (
+                <article class="flex flex-col justify-between p-6 rounded-xl bg-white/80 dark:bg-[#121214]/90 border border-neutral-900/20 dark:border-neutral-800 hover:border-neutral-900/50 dark:hover:border-neutral-700 transition-colors space-y-5">
+                  <div class="space-y-4">
+                    <!-- Card Header: Title + Open/Closed Source Pill -->
+                    <div class="flex items-start justify-between gap-3">
+                      {project.openSource && project.repo ? (
+                        <a
+                          href={`https://github.com/${GITHUB_USER}/${project.repo}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-lg sm:text-xl font-medium tracking-tight text-neutral-950 dark:text-neutral-100 hover:opacity-75 underline underline-offset-4 decoration-neutral-400 dark:decoration-neutral-700 transition-opacity"
+                        >
+                          {project.title} ↗
+                        </a>
                       ) : (
-                        <img
-                          src={project.media}
-                          alt={`${project.title} preview`}
-                          loading="lazy"
-                          class="w-full h-full object-cover"
-                        />
+                        <h3 class="text-lg sm:text-xl font-medium tracking-tight text-neutral-950 dark:text-neutral-100">
+                          {project.title}
+                        </h3>
+                      )}
+
+                      {project.openSource ? (
+                        <span class="shrink-0 font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-600/30 dark:border-emerald-500/30">
+                          open source
+                        </span>
+                      ) : (
+                        <span class="shrink-0 font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-800 dark:text-amber-400 border border-amber-600/30 dark:border-amber-500/30">
+                          closed source
+                        </span>
                       )}
                     </div>
-                  )}
 
-                  <!-- Tagline & Description -->
-                  <div class="space-y-2">
-                    {project.tagline && (
-                      <p class="text-sm font-medium text-neutral-800 dark:text-neutral-200">
-                        {project.tagline}
-                      </p>
+                    <!-- Optional Media Preview -->
+                    {project.media && (
+                      <div class="overflow-hidden rounded-lg border border-neutral-900/15 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 aspect-video">
+                        {isVideo ? (
+                          <video
+                            src={project.media}
+                            autoplay
+                            loop
+                            muted
+                            playsinline
+                            class="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <img
+                            src={project.media}
+                            alt={`${project.title} preview`}
+                            loading="lazy"
+                            class="w-full h-full object-cover"
+                          />
+                        )}
+                      </div>
                     )}
-                    <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                      {project.description}
-                    </p>
+
+                    <!-- Tagline & Description -->
+                    <div class="space-y-2">
+                      {project.tagline && (
+                        <p class="text-sm font-medium text-neutral-800 dark:text-neutral-200">
+                          {project.tagline}
+                        </p>
+                      )}
+                      <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                        {project.description}
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                <!-- Tech Badges -->
-                <div class="flex flex-wrap gap-2 pt-2">
-                  {project.tech.map((item) => (
-                    <span class="font-mono text-xs px-2.5 py-1 rounded bg-neutral-200/70 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 border border-neutral-900/10 dark:border-neutral-800">
-                      {item}
+                  <!-- Tech Badges -->
+                  <div class="flex flex-wrap gap-2 pt-2">
+                    {project.tech.map((item) => (
+                      <span class="font-mono text-xs px-2.5 py-1 rounded bg-neutral-200/70 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 border border-neutral-900/10 dark:border-neutral-800">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      <!-- Open Source & Community Contributions Section -->
+      {activeContributions.length > 0 && (
+        <section class="space-y-6 pb-14 border-b border-neutral-900/20 dark:border-neutral-800">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xs sm:text-sm font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+              Open Source & Community Contributions
+            </h2>
+            <span class="text-xs font-mono text-neutral-500 dark:text-neutral-500">
+              [{activeContributions.length.toString().padStart(2, '0')}]
+            </span>
+          </div>
+
+          <ul class="space-y-5">
+            {activeContributions.map((item) => (
+              <li class="space-y-1">
+                <div class="flex flex-wrap items-baseline justify-between gap-2">
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-base sm:text-lg font-medium text-neutral-900 dark:text-neutral-100 hover:opacity-75 underline underline-offset-4 decoration-neutral-400 dark:decoration-neutral-700 transition-opacity"
+                  >
+                    {item.repo} ↗
+                  </a>
+                  {item.org && (
+                    <span class="text-xs font-mono text-neutral-500 dark:text-neutral-400">
+                      {item.org}
                     </span>
-                  ))}
+                  )}
                 </div>
-              </article>
-            );
-          })}
-        </div>
-      </section>
 
-      <!-- Research Section -->
-      <section class="space-y-4">
-        <h2 class="text-xs sm:text-sm font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
-          Research Contribution
-        </h2>
-        <div>
-          <a
-            href="https://scholar.google.com/scholar?q=ErrgoEngine:+A+Contextualized+Programming+Error+Analysis+Translation+Engine"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-base sm:text-lg font-medium text-neutral-900 dark:text-neutral-100 hover:opacity-75 underline underline-offset-4 decoration-neutral-400 dark:decoration-neutral-700 transition-opacity leading-relaxed"
-          >
-            ErrgoEngine: A Contextualized Programming Error Analysis Translation Engine ↗
-          </a>
-        </div>
-      </section>
+                {item.summary && (
+                  <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                    {item.summary}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <!-- Research Contribution Section -->
+      {activeResearch.length > 0 && (
+        <section class="space-y-6">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xs sm:text-sm font-mono uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+              Research Contribution
+            </h2>
+            <span class="text-xs font-mono text-neutral-500 dark:text-neutral-500">
+              [{activeResearch.length.toString().padStart(2, '0')}]
+            </span>
+          </div>
+
+          <ul class="space-y-4">
+            {activeResearch.map((paper) => (
+              <li class="flex flex-wrap items-baseline justify-between gap-2">
+                <a
+                  href={paper.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-base sm:text-lg font-medium text-neutral-900 dark:text-neutral-100 hover:opacity-75 underline underline-offset-4 decoration-neutral-400 dark:decoration-neutral-700 transition-opacity leading-relaxed"
+                >
+                  {paper.title} ↗
+                </a>
+                {paper.year && (
+                  <span class="text-xs font-mono text-neutral-500 dark:text-neutral-400">
+                    {paper.year}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
     </main>
+
+    <!-- Minimal Footer -->
+    <footer class="border-t border-neutral-900/20 dark:border-neutral-800">
+      <div class="max-w-6xl mx-auto px-6 sm:px-10 py-6 flex items-center justify-between gap-4 text-xs sm:text-sm font-mono text-neutral-500 dark:text-neutral-400">
+        <span>© {new Date().getFullYear()} Joseph Pornillos</span>
+        <button
+          id="back-to-top"
+          type="button"
+          class="inline-flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white transition-colors cursor-pointer"
+        >
+          <span>Back to top</span>
+          <span aria-hidden="true">↑</span>
+        </button>
+      </div>
+    </footer>
 
     <script>
       // 1. Copy Email Handler
@@ -277,6 +359,12 @@ const EMAIL_TLD = 'com';
         htmlEl.classList.add('dark');
         localStorage.setItem('theme', 'dark');
         syncThemeButtons();
+      });
+
+      // 3. Back to Top Handler
+      const backToTopBtn = document.getElementById('back-to-top');
+      backToTopBtn?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     </script>
   </body>
